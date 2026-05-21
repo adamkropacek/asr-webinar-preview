@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Webinar 14. 5. 2026 · All Seasons Residence · Pavel Patričný</title>
-<meta name="description" content="Jak dosáhnout výnosu 14 % ročně bez aktivní správy po dobu 3 let. Live webinář čtvrtek 14. 5. 2026, 19:00. Zerobond varianta s jednorázovou výplatou v září 2028. Ověření projektu podle dat z prospektu.">
+<title>Webinar [DATUM_TBD] · All Seasons Residence · Pavel Patričný</title>
+<meta name="description" content="Jak dosáhnout výnosu 14 % p.a. po dobu 2,5 roku do splatnosti dluhopisu. Live webinář [DATUM_TBD], 19:00. Zerobond varianta s jednorázovou výplatou v září 2028. Projití projektu podle dat z prospektu.">
 
-<meta property="og:title" content="Jak dosáhnout výnosu 14 % ročně bez aktivní správy po dobu 3 let · webinar 14. 5. 2026">
-<meta property="og:description" content="Live webinář o zerobondu All Seasons Residence. 14 % p.a. s jednorázovou výplatou v září 2028. 60 minut + Q&A.">
+<meta property="og:title" content="Webinar All Seasons Residence: 14 % p.a., splatnost 2,5 roku · [DATUM_TBD]">
+<meta property="og:description" content="Live webinář o dluhopisech All Seasons Residence. Kupón 12 % p.a. měsíčně nebo zerobond 14 % p.a. v září 2028. 60 minut + Q&A.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://webinar.allseasonsresidence.cz/og-13-5.jpg">
 
@@ -20,6 +20,53 @@
 
 <!-- GA4 placeholder -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script> -->
+
+<!-- F2.5 (2026-05-18 audit): ASR brain web_sessions tracking. Konsentni gating
+     resi backend (/api/track checkuje consent flag pred persistem). Endpoint
+     vraci 204 i bez consent (no-op). Fire-and-forget, no awaiting. -->
+<script>
+(function(){
+  try {
+    var TRACKING_ENDPOINT = "https://asr.oneflow.cz/api/track";
+    var sid = (function(){
+      try {
+        var k = "asr_sid";
+        var existing = sessionStorage.getItem(k);
+        if (existing) return existing;
+        var fresh = (crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(36).slice(2);
+        sessionStorage.setItem(k, fresh);
+        return fresh;
+      } catch (e) { return Date.now() + "-" + Math.random().toString(36).slice(2); }
+    })();
+    var params = new URLSearchParams(location.search);
+    var payload = {
+      session_id: sid,
+      event_type: "page_view",
+      page_url: location.href,
+      page_title: document.title,
+      referrer: document.referrer || null,
+      utm_source: params.get("utm_source"),
+      utm_medium: params.get("utm_medium"),
+      utm_campaign: params.get("utm_campaign"),
+      utm_content: params.get("utm_content"),
+      utm_term: params.get("utm_term"),
+      fbclid: params.get("fbclid"),
+      gclid: params.get("gclid"),
+      consent_marketing: false  // Default no consent; LP nema dosud consent UI
+    };
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(TRACKING_ENDPOINT, new Blob([JSON.stringify(payload)], {type: "application/json"}));
+    } else {
+      fetch(TRACKING_ENDPOINT, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){});
+    }
+  } catch (e) { /* tracking je best-effort */ }
+})();
+</script>
 
 <style>
 :root {
@@ -1550,9 +1597,9 @@ a { color: inherit; text-decoration: none; }
 
     <div class="hero-grid">
       <div class="reveal">
-        <span class="hero-eyebrow">Live webinář · Čtvrtek 14. 5. 2026 · 19:00</span>
+        <span class="hero-eyebrow">Live webinář · [DATUM_TBD] · 19:00</span>
 
-        <h1>Jak dosáhnout výnosu 14 % ročně bez aktivní správy po dobu 3 let</h1>
+        <h1>Jak dosáhnout výnosu 14 % p.a. po dobu 2,5 roku do splatnosti dluhopisu</h1>
 
         <p class="hero-sub">
           Na webináři vám sdělíme všechny důležité informace o projektu. Jaké různé typy investic projekt nabízí, kdo za ním stojí, v jaké fázi se nachází a jaké je riziko.
@@ -1607,18 +1654,18 @@ a { color: inherit; text-decoration: none; }
     <span class="marquee-item"><span class="dot"></span>Savills · pozemek <strong>11,4 mil EUR</strong></span>
     <span class="marquee-item"><span class="dot"></span>Track record <strong>MMG · 20 let v CEE</strong></span>
     <span class="marquee-item"><span class="dot"></span>MMG portfolio <strong>1,5 mld USD</strong></span>
-    <span class="marquee-item"><span class="dot"></span>Externí prověření · <strong>Bearstone Global</strong></span>
+    <span class="marquee-item"><span class="dot"></span>Splatnost dluhopisu · <strong>září 2028</strong></span>
     <span class="marquee-item"><span class="dot"></span>Prospekt schválen <strong>ČNB</strong></span>
-    <span class="marquee-item"><span class="dot"></span>Lokalita <strong>Zakopané</strong> · top destinace CEE</span>
+    <span class="marquee-item"><span class="dot"></span>Lokalita <strong>Zakopané</strong> · hlavní polské horské středisko</span>
     <span class="marquee-item"><span class="dot"></span>Výnos zerobond <strong>14 % p.a.</strong></span>
     <span class="marquee-item"><span class="dot"></span>Splatnost <strong>září 2028</strong></span>
     <!-- Duplicate -->
     <span class="marquee-item"><span class="dot"></span>Savills · pozemek <strong>11,4 mil EUR</strong></span>
     <span class="marquee-item"><span class="dot"></span>Track record <strong>MMG · 20 let v CEE</strong></span>
     <span class="marquee-item"><span class="dot"></span>MMG portfolio <strong>1,5 mld USD</strong></span>
-    <span class="marquee-item"><span class="dot"></span>Externí prověření · <strong>Bearstone Global</strong></span>
+    <span class="marquee-item"><span class="dot"></span>Splatnost dluhopisu · <strong>září 2028</strong></span>
     <span class="marquee-item"><span class="dot"></span>Prospekt schválen <strong>ČNB</strong></span>
-    <span class="marquee-item"><span class="dot"></span>Lokalita <strong>Zakopané</strong> · top destinace CEE</span>
+    <span class="marquee-item"><span class="dot"></span>Lokalita <strong>Zakopané</strong> · hlavní polské horské středisko</span>
     <span class="marquee-item"><span class="dot"></span>Výnos zerobond <strong>14 % p.a.</strong></span>
     <span class="marquee-item"><span class="dot"></span>Splatnost <strong>září 2028</strong></span>
   </div>
@@ -1630,7 +1677,7 @@ a { color: inherit; text-decoration: none; }
     <div class="reveal" style="text-align: center; margin-bottom: 32px;">
       <span class="eyebrow">Rezervace místa</span>
       <h2 style="font-size: clamp(26px, 3vw, 36px);">Rezervovat místo na webinář</h2>
-      <p style="color: rgba(248,245,238,0.78); margin-top: 14px; max-width: 540px; margin-left: auto; margin-right: auto;">Čtvrtek 14. 5. 2026 · 19:00 · 60 minut + Q&amp;A · zdarma</p>
+      <p style="color: rgba(248,245,238,0.78); margin-top: 14px; max-width: 540px; margin-left: auto; margin-right: auto;">[DATUM_TBD] · 19:00 · 60 minut + Q&amp;A · zdarma</p>
     </div>
 
     <div class="form-box reveal reveal-delay-1" id="webinarjam-embed-1">
@@ -1661,7 +1708,7 @@ a { color: inherit; text-decoration: none; }
           Pavel má za sebou 10 let na burze v akciích, ETF a derivátech a 7 let v investičních nemovitostech.
         </p>
         <p style="font-size: 17px; color: var(--text-muted); line-height: 1.7; margin-top: 14px;">
-          Na webináři nebude dělat obecnou přednášku o investování. Projde konkrétní emisi All Seasons Residence krok za krokem - co se staví, jak je to zabezpečené a jakým způsobem do projektu můžete vstoupit.
+          Na webináři nebude dělat obecnou přednášku o investování. Projde konkrétní emisi All Seasons Residence krok za krokem - co se staví, jaké povinnosti má emitent zapsané v prospektu, jaká rizika investor podstupuje a jakým způsobem do projektu můžete vstoupit.
         </p>
 
         <ul class="speaker-cred">
@@ -1688,7 +1735,7 @@ a { color: inherit; text-decoration: none; }
       <span class="eyebrow">Struktura webináře</span>
       <h2>Čtyři hlavní body, které na webináři projdeme</h2>
       <p class="lead">
-        Pavel projde projekt krok za krokem - co se staví, jak je to zabezpečené, kde to stojí a jakým způsobem do toho můžete vstoupit.
+        Pavel projde projekt krok za krokem - co se staví, jaké povinnosti má emitent a jaká rizika investor podstupuje, kde projekt stojí a jakým způsobem do něj můžete vstoupit.
       </p>
     </div>
 
@@ -1700,18 +1747,18 @@ a { color: inherit; text-decoration: none; }
       </div>
       <div class="crit-card reveal reveal-delay-2">
         <span class="crit-num">Bod 2</span>
-        <h3>Zabezpečení</h3>
-        <p><strong>Pozemek 11&nbsp;000&nbsp;m² v Zakopaném oceněn společností Savills (12/2024) na 11,4 mil. EUR.</strong> Proti tomu stojí česká emise dluhopisů ve výši 7,7 mil. EUR. Poměr aktiva k emisi 1,48 - hodnota majetku převyšuje objem dluhopisů. Prospekt je schválen ČNB.</p>
+        <h3>Struktura emise</h3>
+        <p>Česká emise dluhopisů o objemu <strong>7,7 mil. EUR</strong>, prospekt schválený Českou národní bankou. Dvě varianty pro investora: kupón 12 % p.a. s měsíční výplatou, nebo zerobond 14 % p.a. s jednorázovou výplatou v září 2028. Prospekt obsahuje 8 kovenantů - smluvních povinností emitenta.</p>
       </div>
       <div class="crit-card reveal reveal-delay-3">
         <span class="crit-num">Bod 3</span>
         <h3>Lokalita</h3>
-        <p>Proč Zakopané a proč Polsko. Top horská destinace s celoroční obsazeností, evropská jurisdikce, rostoucí ekonomika.</p>
+        <p>Proč Zakopané a proč Polsko. Nejnavštěvovanější polské horské středisko s celoroční obsazeností, evropská jurisdikce, rostoucí ekonomika.</p>
       </div>
       <div class="crit-card reveal reveal-delay-4">
         <span class="crit-num">Bod 4</span>
         <h3>Možnosti investice</h3>
-        <p>Dvě cesty pro investora: <strong>dluhopis</strong> (kupón 12 % p.a. vyplácen měsíčně, nebo zerobond 14 % p.a. vyplácen jednorázově v září 2028), nebo <strong>apartmán</strong> v projektu - díky Dual Return si můžete při splatnosti vybrat peníze, nebo nemovitost.</p>
+        <p>Dvě varianty dluhopisu: <strong>kupón 12 % p.a.</strong> vyplácen měsíčně, nebo <strong>zerobond 14 % p.a.</strong> vyplácen jednorázově v září 2028. Která varianta sedí komu na konkrétních příkladech v prospektu.</p>
       </div>
     </div>
   </div>
@@ -1722,7 +1769,7 @@ a { color: inherit; text-decoration: none; }
   <div class="container reveal">
     <div class="cta-strip-text">
       <strong>Chcete vidět všechna čísla a dokumenty na vlastní oči?</strong>
-      <span>Zdarma, čtvrtek 14. 5. 2026, 19:00 · 60 minut + Q&amp;A</span>
+      <span>Zdarma, [DATUM_TBD], 19:00 · 60 minut + Q&amp;A</span>
     </div>
     <a href="#register-final" class="btn-primary cta-strip-btn">
       Chci se účastnit
@@ -1731,18 +1778,18 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
-<!-- ============= SECTION: PROČ WEBINÁŘ EXISTUJE (přepsáno 2026-05-04) ============= -->
+<!-- ============= SECTION: KOMU JE WEBINÁŘ URČEN (přepsáno 2026-05-20) ============= -->
 <section class="section section-light">
   <div class="container-narrow reveal">
-    <span class="eyebrow">Proč webinář existuje</span>
-    <h2>CHCEME, ABY JSTE SE O PŘÍPADNÉ INVESTICI ROZHODLI SAMI NA ZÁKLADĚ FAKTŮ</h2>
+    <span class="eyebrow">Komu je webinář určen</span>
+    <h2>PRO INVESTORY, KTEŘÍ CHTĚJÍ ROZHODNUTÍ NA ZÁKLADĚ FAKT, NE NA ZÁKLADĚ LETÁKU</h2>
 
     <div class="body">
-      <p>Webinář existuje proto, aby vám Pavel ukázal projekt All Seasons Residence krok za krokem. Co se staví, kdo za projektem stojí, v jaké fázi se nachází a jaká jsou rizika.</p>
+      <p>Pokud zvažujete investici do dluhopisů All Seasons Residence, na webináři projdete projekt krok za krokem s Pavlem Patrickým. Co se staví, kdo je emitent, v jaké fázi je projekt a jaká rizika investor podstupuje.</p>
 
-      <p>Cílem není nikoho přesvědčit, aby investoval. Cílem je dát vám dostatek informací, abyste se mohli rozhodnout sami. Ano, ne, nebo zatím ne.</p>
+      <p>Cílem není nikoho přesvědčit, aby investoval. Cílem je dát vám dostatek informací k vlastnímu rozhodnutí. Ano, ne, nebo zatím ne.</p>
 
-      <p>Investice do firemních dluhopisů se nedá rozhodnout z půlstránkového letáku. Webinář vám ukáže to, co se na letáku neukazuje. A otevřeně řekne i to, co projekt zajištěné nemá.</p>
+      <p>Investice do firemních dluhopisů se nedá rozhodnout z půlstránkového letáku. Webinář projde to, co se na letáku neukazuje - povinnosti emitenta v prospektu, kovenanty, splatnost, rizika. Otevřeně i to, co projekt nemá.</p>
 
       <p class="pull">60 minut. Fakta, kontext, otázky a odpovědi.</p>
     </div>
@@ -1768,7 +1815,7 @@ a { color: inherit; text-decoration: none; }
         <div class="when">00:00 - 03:00</div>
         <div class="what">
           <strong>Co je All Seasons Residence + co si odnesete</strong>
-          Krátké uvedení projektu a frameworku, který vám umožní posoudit nejen tuto, ale jakoukoli další emisi nemovitostního dluhopisu.
+          Krátké uvedení projektu a kritérií, podle kterých dává smysl posuzovat nemovitostní dluhopisy obecně - nejen tuto konkrétní emisi.
         </div>
       </li>
       <li>
@@ -1795,22 +1842,22 @@ a { color: inherit; text-decoration: none; }
       <li>
         <div class="when">20:00 - 28:00</div>
         <div class="what">
-          <strong>Dual Return: peníze nebo apartmán</strong>
-          Při splatnosti si vyberete: jistina + výnos v penězích, nebo apartmán v projektu v hodnotě úpisu. Proč je tato struktura hedge proti špatné zkušenosti, kdy investor dostal úroky, ale jistinu nikdy.
+          <strong>Varianty výplaty: kupón vs zerobond</strong>
+          Kupón 12 % p.a. s měsíční výplatou pro pravidelný cashflow, nebo zerobond 14 % p.a. s jednorázovou výplatou v září 2028. Která varianta sedí komu podle horizontu a cíle.
         </div>
       </li>
       <li>
         <div class="when">28:00 - 36:00</div>
         <div class="what">
           <strong>Stavební povolení: aktuální status</strong>
-          Top námitka, kterou Pavel slyší. Stavební povolení očekávané v Q2/2026, dokončení v Q4/2028. Aktuální stav, právní kroky emitenta a co se stane v případě zpoždění.
+          Nejčastější obava, kterou Pavel od investorů slyší. Stavební povolení je očekávané v Q3/2026. Aktuální stav, další kroky emitenta a co se v prospektu řeší v případě zpoždění.
         </div>
       </li>
       <li>
         <div class="when">36:00 - 44:00</div>
         <div class="what">
-          <strong>Developer MMG + 7 kovenantů + Bearstone Global</strong>
-          Master Management Group: 20 let v CEE, 40+ projektů, portfolio 1,5 mld USD. Vlastnická struktura, mantinely emitenta v prospektu a co prověřila externí společnost Bearstone Global.
+          <strong>Developer MMG + 8 kovenantů v prospektu</strong>
+          Master Management Group: 18 let, 35 dokončených projektů, 1,5 mld. Vlastnická struktura, mantinely emitenta v prospektu a co konkrétně 8 kovenantů zakazuje a vyžaduje.
         </div>
       </li>
       <li>
@@ -1824,7 +1871,7 @@ a { color: inherit; text-decoration: none; }
         <div class="when live">52:00 - 60:00</div>
         <div class="what">
           <strong>Rozhodovací rámec: 4 kritéria pro každý dluhopis</strong>
-          Asset ratio, track record developera, kovenanty, výstupní strategie. Co si odnést jako framework pro každou další investiční nabídku, ne jen pro ASR.
+          Čtyři praktické otázky: struktura emise, zkušenost developera, smluvní povinnosti emitenta (kovenanty), výstupní strategie a splatnost. Co si z nich odnést pro jakoukoli další emisi nemovitostního dluhopisu, ne jen pro ASR.
         </div>
       </li>
       <li>
@@ -1843,7 +1890,7 @@ a { color: inherit; text-decoration: none; }
   <div class="container reveal">
     <div class="cta-strip-text">
       <strong>Vidíte v programu téma, které vás zajímá?</strong>
-      <span>Čtvrtek 14. 5. 2026 · 19:00 · zdarma</span>
+      <span>[DATUM_TBD] · 19:00 · zdarma</span>
     </div>
     <a href="#register-final" class="btn-primary cta-strip-btn">
       Chci se účastnit
@@ -1866,7 +1913,7 @@ a { color: inherit; text-decoration: none; }
       <ul>
         <li><span><strong>Proč Zakopané předbíhá Varšavu</strong> v cenách nemovitostí a proč je to „zimní hlavní město Polska" s celoroční obsazeností.</span></li>
         <li><span><strong>Jak funguje rozdíl mezi kupónem 12 % p.a.</strong> s měsíční výplatou a <strong>zerobondem 14 % p.a.</strong> s jednorázovou výplatou v září 2028 - která varianta dává smysl pro vaši situaci.</span></li>
-        <li><span><strong>Jaká pravidla má emitent zapsaná v prospektu</strong> a co prověřila externí společnost Bearstone Global - všechno na konkrétních dokumentech, ne na slibech.</span></li>
+        <li><span><strong>Jaká pravidla má emitent zapsaná v prospektu</strong> - 8 kovenantů (omezení zadlužení, reportovací povinnosti, zákaz převodů podílů). Všechno na konkrétních dokumentech, ne na slibech.</span></li>
       </ul>
     </div>
 
@@ -1894,7 +1941,7 @@ a { color: inherit; text-decoration: none; }
       <div class="deliv-card">
         <span class="deliv-num">5</span>
         <h3>Externí prověření projektu</h3>
-        <p>Dozvíte se, co prověřila společnost <strong>Bearstone Global</strong>, co znamená výsledek bez negativních nálezů a kde má i takové prověření své limity.</p>
+        <p>Dozvíte se, jaké povinnosti má emitent zapsané v prospektu a jaká rizika investor podstupuje. Konkrétně: 8 kovenantů, schvalovací proces ČNB a jaké jsou limity těchto smluvních pojistek.</p>
       </div>
       <div class="deliv-card">
         <span class="deliv-num">6</span>
@@ -1914,7 +1961,7 @@ a { color: inherit; text-decoration: none; }
   <div class="container reveal">
     <div class="cta-strip-text">
       <strong>Chcete mít jasno ve všech těchto bodech?</strong>
-      <span>14. 5. 2026, 19:00 · živé vysílání · zdarma</span>
+      <span>[DATUM_TBD], 19:00 · živé vysílání · zdarma</span>
     </div>
     <a href="#register-final" class="btn-primary cta-strip-btn">
       Chci se účastnit
@@ -1934,41 +1981,33 @@ a { color: inherit; text-decoration: none; }
 
     <div class="faq-list">
       <details class="faq-item" open>
-        <summary>Jak je dluhopis zajištěný? Jak víme, že o peníze nepřijdeme?</summary>
+        <summary>Jaké povinnosti má emitent a jaká rizika investor podstupuje?</summary>
         <div class="faq-answer">
-          <p>Toto je nejčastější otázka, kterou Pavel slyší na schůzkách. Krátká odpověď: <strong>česká emise je pod prospektem schváleným ČNB</strong>. Dluhopisy jako produkt ale <strong>nejsou zajištěné majetkem</strong> ve smyslu zástavy - to je důležité říct přímo.</p>
-          <p>Ochrana investora v tomto projektu stojí na třech věcech: hodnotě pozemku oceněného Savills (11,4 mil. EUR proti emisi 7,7 mil. EUR), pravidlech zapsaných v prospektu (omezení dluhu, povinnost reportovat) a externím prověření společností Bearstone Global. Co každá z těchto vrstev znamená v praxi a co naopak NEznamená, projdeme krok za krokem.</p>
+          <p>Emitentem je <strong>Stachonie Investment s.r.o.</strong> a emise je vedena pod prospektem schváleným Českou národní bankou. Prospekt obsahuje <strong>8 kovenantů</strong> - smluvních povinností emitenta (omezení zadlužení, povinnost reportovat investorům, zákaz převodů podílů a další). Konkrétní seznam povinností i rizikových faktorů je v prospektu.</p>
+          <p>Investice do dluhopisů nese riziko: návratnost není garantována, výnos závisí na splnění závazků emitenta, a stavební fáze projektu znamená developerské riziko. Co konkrétní kovenanty zakazují a kde jsou jejich limity rozebereme na webináři.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>Kdy bude projekt postavený a kdy dostanu peníze zpět?</summary>
         <div class="faq-answer">
-          <p>Stavební povolení projektu je očekáváno v <strong>Q2/2026</strong>, dokončení výstavby plánované na <strong>Q4/2028</strong>. Splatnost dluhopisů je <strong>září 2028</strong>.</p>
-          <p>U <strong>kupónové varianty 12 % p.a.</strong> dostáváte výplatu měsíčně po celou dobu trvání emise. U <strong>zerobond varianty 14 % p.a.</strong> dostáváte celou částku včetně výnosu jednorázově v září 2028. Aktuální status povolení a timeline projektu detailně rozebereme na webináři.</p>
+          <p>Stavební povolení projektu je očekáváno v <strong>Q3/2026</strong>. Splatnost dluhopisů je <strong>září 2028</strong> a vyplývá ze smluvních podmínek emise, nikoli z dokončení stavby.</p>
+          <p>U <strong>kupónové varianty 12 % p.a.</strong> dostáváte výplatu měsíčně po celou dobu trvání emise. U <strong>zerobond varianty 14 % p.a.</strong> dostáváte celou částku včetně výnosu jednorázově v září 2028. Aktuální status povolení rozebereme na webináři.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>Co se stane, když developer zkrachuje nebo nedokončí projekt?</summary>
         <div class="faq-answer">
-          <p>Tohle je férová otázka, kterou si má každý investor položit. Na webináři projdeme, jaká pravidla má emitent zapsaná v prospektu (např. smluvní zákaz prodeje podílů, povinnost reportovat investorům), co stojí za hodnotou pozemku a jak by probíhala situace v krajním scénáři.</p>
-          <p>Je důležité říci, že developer MMG má za sebou <strong>20 let praxe</strong>, portfolio <strong>1,5 mld USD</strong> a 40+ realizovaných projektů.</p>
+          <p>Tohle je férová otázka, kterou si má každý investor položit. Na webináři projdeme, jaká pravidla má emitent zapsaná v prospektu (smluvní zákaz prodeje podílů, povinnost reportovat investorům, omezení zadlužení) a jaké jsou postupy v krajním scénáři.</p>
+          <p>Developer MMG má za sebou <strong>18 let praxe</strong>, <strong>35 dokončených projektů</strong> a <strong>1,5 mld</strong> v portfoliu. Track record je faktem, není to ale záruka úspěchu této emise - to je důležité říci přímo.</p>
         </div>
       </details>
 
       <details class="faq-item">
         <summary>Proč Polsko a proč Zakopané?</summary>
         <div class="faq-answer">
-          <p>Polsko za posledních 20 let dohnalo Česko v ekonomickém růstu - HDP, příjmy, turismus. Zakopané je <strong>top horská destinace v Polsku</strong> s celoroční obsazeností (lyžování + letní wellness/turistika).</p>
-        </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>Co je „Dual Return" a kdy se mi to hodí?</summary>
-        <div class="faq-answer">
-          <p>Dual Return znamená, že u splatnosti si můžete vybrat: <strong>peníze (jistina + výnos)</strong>, nebo <strong>apartmán</strong> v projektu v hodnotě úpisu. Volba je na vaší straně.</p>
-          <p>Tato struktura je hedge proti špatné zkušenosti s dluhopisy, kde investor dostal úroky, ale jistinu nikdy. U ASR je výstup pod vaší kontrolou. Detaily a podmínky probereme na webináři.</p>
+          <p>Polsko za posledních 20 let dohnalo Česko v ekonomickém růstu - HDP, příjmy, turismus. Zakopané je <strong>nejnavštěvovanější polské horské středisko</strong> s celoroční obsazeností (lyžování + letní wellness/turistika).</p>
         </div>
       </details>
 
@@ -1984,8 +2023,8 @@ a { color: inherit; text-decoration: none; }
       <details class="faq-item">
         <summary>Jak je to s daněmi z výnosu?</summary>
         <div class="faq-answer">
-          <p><strong>Kupón 12 % p.a.:</strong> měsíční výplata se v ČR daní jako příjem z kapitálového majetku. <strong>15% srážkovou daň odvádí emitent automaticky</strong>, vám chodí čistá částka na účet.</p>
-          <p><strong>Zerobond 14 % p.a.:</strong> u fyzických osob v ČR se posuzuje rozdíl mezi pořizovací cenou a nominální hodnotou. Konkrétní daňový režim závisí na době držby cenných papírů a vaší osobní situaci.</p>
+          <p>Zdanění výnosů z dluhopisů se v ČR řídí platnou legislativou. Konkrétní daňový dopad závisí na osobní situaci investora (právní forma, doba držby, daňová rezidence). Pro individuální posouzení doporučujeme konzultaci s daňovým poradcem.</p>
+          <p>Daňový režim apartmánu jako nemovitosti se odvíjí od zvoleného režimu vlastnictví (osobní vs. obchodní), režimu DPH u pronájmu a dalších faktorů.</p>
         </div>
       </details>
 
@@ -2086,13 +2125,13 @@ a { color: inherit; text-decoration: none; }
     <p class="lead-intro">All Seasons Residence je plánovaný rezidenční komplex v Zakopaném. Tady jsou klíčová fakta, která má investor mít před sebou, než se rozhodne.</p>
 
     <ul class="proc-bullets">
-      <li><strong>220 luxusních apartmánů</strong> na pozemku 11 000 m² v Zakopaném - top horská destinace Polska s celoroční obsazeností.</li>
+      <li><strong>220 apartmánů</strong> na pozemku 11 000 m² v Zakopaném - nejnavštěvovanější polské horské středisko s celoroční obsazeností.</li>
       <li><strong>Developer Master Management Group</strong> (MMG): 20 let v CEE, 40+ realizovaných projektů, portfolio 1,5 mld. USD.</li>
       <li><strong>Česká emise</strong> vedena přes Stachonie Investment s.r.o. <strong>Prospekt schválen ČNB.</strong></li>
       <li><strong>Pozemek oceněn Savills</strong> (12/2024) na 11,4 mil. EUR; objem emise 7,7 mil. EUR. Poměr aktiva vůči emisi <strong>1,48</strong> - hodnota majetku převyšuje objem dluhopisů.</li>
-      <li><strong>7 kovenantů</strong> zapsaných v prospektu: omezení dluhu, povinnost reportovat investorům, smluvní zákaz prodeje podílů ve společnosti.</li>
-      <li><strong>Externí prověření</strong> společností Bearstone Global - bez negativních nálezů.</li>
-      <li><strong>Dual Return</strong> při splatnosti v září 2028: jistina + výnos v penězích, nebo apartmán v projektu v hodnotě úpisu.</li>
+      <li><strong>8 kovenantů</strong> zapsaných v prospektu: omezení zadlužení, povinnost reportovat investorům, smluvní zákaz převodů podílů a další smluvní povinnosti emitenta.</li>
+      <li><strong>8 kovenantů</strong> zapsaných v prospektu - smluvní povinnosti emitenta (omezení dluhu, reportovací povinnost, zákaz převodů podílů).</li>
+      <li><strong>Splatnost dluhopisu září 2028</strong>: kupón 12 % p.a. s měsíční výplatou, nebo zerobond 14 % p.a. s jednorázovou výplatou v září 2028.</li>
       <li><strong>Dvě varianty výnosu</strong>: kupón 12 % p.a. s měsíční výplatou, nebo zerobond 14 % p.a. s jednorázovou výplatou v září 2028.</li>
     </ul>
 
@@ -2106,7 +2145,7 @@ a { color: inherit; text-decoration: none; }
 <section class="final-cta-bg" id="register-final">
   <div class="container reveal">
     <span class="eyebrow" style="color: var(--bronze);">Rezervace místa</span>
-    <h2>Čtvrtek 14. 5. 2026 · 19:00</h2>
+    <h2>[DATUM_TBD] · 19:00</h2>
     <p class="lead">Live webinář · 60 minut + 15 minut Q&amp;A · zdarma. Místo si rezervujte níže.</p>
 
     <div class="form-box" id="webinarjam-embed-2">
@@ -2126,8 +2165,13 @@ a { color: inherit; text-decoration: none; }
   <div class="container">
 
     <div class="footer-compliance">
-      <strong style="color: var(--bronze); font-family: 'Oswald', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; font-size: 13px;">Důležité upozornění</strong><br><br>
-      Tento webinář má vzdělávací charakter a není investičním doporučením ve smyslu zákona č. 256/2004 Sb. (ZPKT). Investice do dluhopisů All Seasons Residence nese riziko ztráty vloženého kapitálu. Historická výkonnost developera ani jiných projektů není zárukou budoucích výsledků. Prospekt dluhopisů All Seasons Residence schválen Českou národní bankou. Prospekt obsahuje detailní popis rizik investice. Před investičním rozhodnutím doporučujeme prostudovat plný prospekt a konzultovat investici s nezávislým finančním poradcem.
+      <strong style="color: var(--bronze); font-family: 'Oswald', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; font-size: 13px;">Identifikace emitenta a prospekt</strong><br><br>
+      Emitentem dluhopisů je společnost <strong>Stachonie Investment s.r.o.</strong>, IČO: 178 12 895, se sídlem Silurská 1175/8, Hlubočepy, 152 00 Praha 5. Rozhodnutí ČNB o schválení prospektu č.j. 2025/110658/CNB/650 ze dne 10. září 2025 a Konečné podmínky jsou Emitentem uveřejněny na <a href="https://www.allseasonsresidence.cz/pro-investory" style="color: var(--bronze); text-decoration: underline;">www.allseasonsresidence.cz v sekci „Pro investory"</a>.<br><br>
+
+      <strong style="color: var(--bronze); font-family: 'Oswald', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; font-size: 13px;">Propagační sdělení a upozornění na rizika</strong><br><br>
+      Toto sdělení má propagační a informační charakter a týká se možnosti investice do dluhopisů emitenta Stachonie Investment s.r.o. Nejedná se o investiční poradenství ani o individuální doporučení zohledňující osobní finanční situaci, investiční cíle nebo zkušenosti konkrétního investora.<br><br>
+      Schválení prospektu Českou národní bankou neznamená potvrzení kvality emitenta ani dluhopisů. Česká národní banka neposuzuje ekonomickou výhodnost investice ani schopnost emitenta dostát svým závazkům.<br><br>
+      Investice do dluhopisů je spojena s riziky. Dluhopisy nejsou bankovním vkladem, nevztahuje se na ně zákonné pojištění vkladů a návratnost investované částky ani dosažení očekávaného výnosu nejsou zaručeny. Investor by se měl před přijetím investičního rozhodnutí seznámit s příslušnou emisní dokumentací a rizikovými faktory v prospektu.
     </div>
 
     <div class="footer-grid">
